@@ -6,17 +6,31 @@ import java.math.BigDecimal;
 @Entity
 public class Ingredient {
 
+
+    //region .: Properties :.
+
+    private String description;
+    private BigDecimal amount;
+
+    //region .: Mapping Relationship
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String description;
-    private BigDecimal amount;
+
 
     @OneToOne(fetch = FetchType.EAGER) //Eager trás a propriedade toda hora do banco de dados.
     private UnitOfMeasure uom;
 
     @ManyToOne
     private Recipe recipe;
+
+    //endregion
+
+
+    //endregion
+
+    //region .: Getter's and Setter's :.
 
     public Long getId() {
         return id;
@@ -57,4 +71,7 @@ public class Ingredient {
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
+
+    //endregion
+
 }

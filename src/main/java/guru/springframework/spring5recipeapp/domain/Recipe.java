@@ -1,14 +1,16 @@
 package guru.springframework.spring5recipeapp.domain;
 
+import guru.springframework.spring5recipeapp.domain.enums.Difficulty;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 public class Recipe {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    //region .: Properties :.
+
+
 
     private String description;
     private Integer prepTime;
@@ -18,8 +20,14 @@ public class Recipe {
     private String url;
     private String directions;
 
-    //todo add
-    //private Difficulty difficulty
+    //region .: Mapping Relationship :.
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients;
@@ -29,6 +37,28 @@ public class Recipe {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
+
+    //endregion
+
+    //endregion
+
+    //region .: Getter's and Setter's
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public Long getId() {
         return id;
@@ -109,4 +139,7 @@ public class Recipe {
     public void setNotes(Notes notes) {
         this.notes = notes;
     }
+
+    //endregion
+
 }

@@ -4,6 +4,11 @@ import javax.persistence.*;
 
 @Entity
 public class Notes {
+
+    //region .: Properties :.
+
+
+    //region .: Mapping Relationship :.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -13,6 +18,12 @@ public class Notes {
 
     @Lob
     private String recipeNotes;
+    //endregion
+
+    //endregion
+
+
+    //region .: Getter's and Setter's
 
     public Long getId() {
         return id;
@@ -37,4 +48,7 @@ public class Notes {
     public void setRecipeNotes(String recipeNotes) {
         this.recipeNotes = recipeNotes;
     }
+
+    //endregion
+
 }
