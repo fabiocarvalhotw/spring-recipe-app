@@ -3,8 +3,22 @@ package guru.springframework.spring5recipeapp.domain;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+//Todo - Create loader
+//Create a data load instead of using database.
+
 @Entity
 public class Ingredient {
+
+    public Ingredient() {
+
+    }
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+        this.recipe = recipe;
+    }
 
 
     //region .: Properties :.
