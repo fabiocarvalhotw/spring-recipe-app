@@ -5,21 +5,26 @@ import guru.springframework.spring5recipeapp.domain.enums.Difficulty;
 import guru.springframework.spring5recipeapp.repositories.CategoryRepository;
 import guru.springframework.spring5recipeapp.repositories.RecipeRepository;
 import guru.springframework.spring5recipeapp.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
+@Slf4j
+@Component
+public class RecipesLoad implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CategoryRepository categoryRepository;
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
-    public DataLoad(CategoryRepository categoryRepository, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
+
+    public RecipesLoad(CategoryRepository categoryRepository, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.categoryRepository = categoryRepository;
         this.recipeRepository = recipeRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
@@ -27,7 +32,72 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        LoadData();
         recipeRepository.saveAll(getRecipes());
+    }
+
+    private void LoadData() {
+        Category category1 = new Category();
+        category1.setDescription("American");
+        category1.setId(1L);
+
+        Category category2 = new Category();
+        category2.setDescription("Italian");
+        category2.setId(2L);
+
+        Category category3 = new Category();
+        category3.setDescription("Mexican");
+        category3.setId(3L);
+
+        Category category4 = new Category();
+        category4.setDescription("Fast Food");
+        category4.setId(4L);
+
+        categoryRepository.save(category1);
+        categoryRepository.save(category2);
+        categoryRepository.save(category3);
+        categoryRepository.save(category4);
+
+        UnitOfMeasure uom1 = new UnitOfMeasure();
+        uom1.setUom("Teaspoon");
+        uom1.setId(1L);
+
+        UnitOfMeasure uom2 = new UnitOfMeasure();
+        uom2.setUom("Tablespoon");
+        uom2.setId(2L);
+
+        UnitOfMeasure uom3 = new UnitOfMeasure();
+        uom3.setUom("Cup");
+        uom3.setId(3L);
+
+        UnitOfMeasure uom4 = new UnitOfMeasure();
+        uom4.setUom("Pinch");
+        uom4.setId(4L);
+
+        UnitOfMeasure uom5 = new UnitOfMeasure();
+        uom5.setUom("Ounce");
+        uom5.setId(5L);
+
+        UnitOfMeasure uom6 = new UnitOfMeasure();
+        uom6.setUom("Each");
+        uom6.setId(6L);
+
+        UnitOfMeasure uom7 = new UnitOfMeasure();
+        uom7.setUom("Dash");
+        uom7.setId(7L);
+
+        UnitOfMeasure uom8 = new UnitOfMeasure();
+        uom8.setUom("Pint");
+        uom8.setId(8L);
+
+        unitOfMeasureRepository.save(uom1);
+        unitOfMeasureRepository.save(uom2);
+        unitOfMeasureRepository.save(uom3);
+        unitOfMeasureRepository.save(uom4);
+        unitOfMeasureRepository.save(uom5);
+        unitOfMeasureRepository.save(uom6);
+        unitOfMeasureRepository.save(uom7);
+        unitOfMeasureRepository.save(uom8);
     }
 
     private List<Recipe> getRecipes() {
@@ -37,37 +107,37 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
         //get UOMs
         Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByUom("Each");
 
-        if(!eachUomOptional.isPresent()){
+        if (eachUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
         Optional<UnitOfMeasure> tableSpoonUomOptional = unitOfMeasureRepository.findByUom("Tablespoon");
 
-        if(!tableSpoonUomOptional.isPresent()){
+        if (tableSpoonUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
         Optional<UnitOfMeasure> teaSpoonUomOptional = unitOfMeasureRepository.findByUom("Teaspoon");
 
-        if(!teaSpoonUomOptional.isPresent()){
+        if (teaSpoonUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
         Optional<UnitOfMeasure> dashUomOptional = unitOfMeasureRepository.findByUom("Dash");
 
-        if(!dashUomOptional.isPresent()){
+        if (dashUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
         Optional<UnitOfMeasure> pintUomOptional = unitOfMeasureRepository.findByUom("Pint");
 
-        if(!pintUomOptional.isPresent()){
+        if (pintUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
         Optional<UnitOfMeasure> cupsUomOptional = unitOfMeasureRepository.findByUom("Cup");
 
-        if(!cupsUomOptional.isPresent()){
+        if (cupsUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
@@ -82,13 +152,13 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
         //get Categories
         Optional<Category> americanCategoryOptional = categoryRepository.findByDescription("American");
 
-        if(!americanCategoryOptional.isPresent()){
+        if (americanCategoryOptional.isEmpty()) {
             throw new RuntimeException("Expected Category Not Found");
         }
 
         Optional<Category> mexicanCategoryOptional = categoryRepository.findByDescription("Mexican");
 
-        if(!mexicanCategoryOptional.isPresent()){
+        if (mexicanCategoryOptional.isEmpty()) {
             throw new RuntimeException("Expected Category Not Found");
         }
 
