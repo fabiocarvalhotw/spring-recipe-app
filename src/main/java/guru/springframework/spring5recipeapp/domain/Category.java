@@ -6,28 +6,16 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"recipes"})
 @Entity
 public class Category {
-
-    //region .: Properties :.
-
-    private String description;
-
-    //region .: Mapping Relationship :.
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String description;
 
     @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes;
-
-    //endregion
-
-    //endregion
-
-    //region .: Getter's and Setter's
-
-    //endregion
 
 }

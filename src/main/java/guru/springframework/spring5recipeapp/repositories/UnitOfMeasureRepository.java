@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Long> {
 
-    Optional<UnitOfMeasure> findByUom(String uom); //após o By deve-se usar o nome da propriedade.
+    Optional<UnitOfMeasure> findByDescription(String description); //após o By deve-se usar o nome da propriedade.
 }

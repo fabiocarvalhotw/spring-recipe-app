@@ -5,13 +5,10 @@ import lombok.*;
 import javax.persistence.*;
 
 @Data
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Notes {
 
-    //region .: Properties :.
-
-
-    //region .: Mapping Relationship :.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,9 +18,5 @@ public class Notes {
 
     @Lob
     private String recipeNotes;
-    //endregion
-
-    //endregion
-
 
 }
